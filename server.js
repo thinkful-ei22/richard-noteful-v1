@@ -15,6 +15,11 @@ app.get('/api/notes', (req, res) => {
   res.json(data);
 });
 
+app.get('/api/notes/:id' , (req, res) => {
+  const foundData = data.find(item => item.id === Number(req.params.id));
+  res.json(foundData);
+});
+
 // ADD STATIC SERVER HERE
 
 app.use(express.static('public'));
