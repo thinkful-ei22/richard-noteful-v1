@@ -14,7 +14,7 @@ console.log('Hello Noteful!');
 app.get('/api/notes', (req, res) => {
   const {searchTerm} = req.query;
   if (searchTerm) {
-    let list = data.filter(note => note.title.includes(searchTerm));
+    let list = data.filter(note => note.title.includes(searchTerm)||note.content.includes(searchTerm));
     res.json(list);
   } else {
     res.json(data);
