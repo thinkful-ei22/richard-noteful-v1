@@ -3,22 +3,29 @@
 // Load array of notes
 const data = require('./db/notes');
 
-console.log('Hello Noteful!');
-
-// INSERT EXPRESS APP CODE HERE...
-
 const express = require('express');
 
 const app = express();
 
+console.log('Hello Noteful!');
+
+// INSERT EXPRESS APP CODE HERE...
+
 app.get('/api/notes', (req, res) => {
-  res.json(data);
+  const {searchTerm} = req.query;
+  if (searchTerm) {
+    let list = data.filter(note => note.title.includes(searchTerm));
+    res.json(list);
+  } else {
+    res.json(data);
+  }
 });
 
 app.get('/api/notes/:id' , (req, res) => {
   const foundData = data.find(item => item.id === Number(req.params.id));
   res.json(foundData);
 });
+
 
 // ADD STATIC SERVER HERE
 
