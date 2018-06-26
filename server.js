@@ -54,10 +54,9 @@ app.put('/api/notes/:id', (req, res, next) => {
   /***** Never trust users - validate input *****/
   const updateObj = {};
   const updateFields = ['title', 'content'];
-  console.log(req.body.title);
+  
   updateFields.forEach(field => {
     if (field in req.body) {
-      console.log(field);
       updateObj[field] = req.body[field];
     }
   });
