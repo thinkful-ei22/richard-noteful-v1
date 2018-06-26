@@ -21,14 +21,15 @@ app.use(simpleLogger);
 
 app.use(express.static('public'));
 
-app.get('/api/notes', (req, res) => {
-  const {searchTerm} = req.query;
-  if (searchTerm) {
-    let list = data.filter(note => note.title.includes(searchTerm)||note.content.includes(searchTerm));
-    res.json(list);
-  } else {
-    res.json(data);
-  }
+app.get('/api/notes', (req, res, next) => {
+  const { searchTerm } = req.query;
+
+  notes.filter(searchTerm, (err, list) => {
+    if (err) {
+      return next(err); // goes to error handler
+    }
+    res.json(list); // responds with filtered array
+  });
 });
 
 app.get('/api/notes/:id' , (req, res) => {
