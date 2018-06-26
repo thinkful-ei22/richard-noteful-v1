@@ -32,9 +32,22 @@ app.get('/api/notes', (req, res, next) => {
   });
 });
 
-app.get('/api/notes/:id' , (req, res) => {
-  const foundData = data.find(item => item.id === Number(req.params.id));
-  res.json(foundData);
+app.get('/api/notes/:id' , (req, res, next) => {
+  const id = req.params.id;
+
+  notes.find(id, (err, item) => {
+    if (err) {
+      return next(err);
+    } else if (item) {
+      res.json(item);
+    } else {
+      next();
+    }
+  });
+});
+
+app.get('/boom', (req, res, next) => {
+  throw new Error('Boom!!');
 });
 
 app.use(function (req, res, next) {
