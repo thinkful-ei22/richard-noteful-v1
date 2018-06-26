@@ -2,6 +2,8 @@
 
 // Load array of notes
 const data = require('./db/notes');
+const simDB = require('./db/simDB');  // <<== add this
+const notes = simDB.initialize(data); // <<== and this
 
 const express = require('express');
 
