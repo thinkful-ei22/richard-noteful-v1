@@ -5,6 +5,8 @@ const data = require('./db/notes');
 
 const express = require('express');
 
+const { simpleLogger } = require('./middleware/logger');
+
 const { PORT } = require('./config');
 
 const app = express();
@@ -13,6 +15,7 @@ console.log('Hello Noteful!');
 
 // INSERT EXPRESS APP CODE HERE...
 
+app.use(simpleLogger);
 
 app.get('/api/notes', (req, res) => {
   const {searchTerm} = req.query;
