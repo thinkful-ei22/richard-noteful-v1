@@ -33,10 +33,6 @@ app.get('/api/notes/:id' , (req, res) => {
   const foundData = data.find(item => item.id === Number(req.params.id));
   res.json(foundData);
 });
-// error testing
-app.get('/boom', (req, res, next) => {
-  throw new Error('Boom!!');
-});
 
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
