@@ -19,7 +19,7 @@ router.get('/notes', (req, res, next) => {
   });
 });
 
-router.get('/notes/:id' , (req, res, next) => {
+router.get('/notes/:id', (req, res, next) => {
   const id = req.params.id;
 
   notes.find(id, (err, item) => {
@@ -39,7 +39,7 @@ router.put('/notes/:id', (req, res, next) => {
   /***** Never trust users - validate input *****/
   const updateObj = {};
   const updateFields = ['title', 'content'];
-  
+
   updateFields.forEach(field => {
     if (field in req.body) {
       updateObj[field] = req.body[field];
@@ -84,8 +84,10 @@ router.post('/notes', (req, res, next) => {
 
 router.delete('/notes/:id', (req, res, next) => {
   const id = req.params.id;
-  notes.delete(id, (err) => {
-    if (err) {
+  notes.delete(id, (err, len) => {
+    if (err || len === null) {
+      err = Error('Missing id in list');
+      err.status = 500;
       return next(err);
     } else {
       res.sendStatus(204);
