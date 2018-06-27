@@ -7,7 +7,8 @@ const notes = simDB.initialize(data); // <<== and this
 
 const express = require('express');
 
-const { simpleLogger } = require('./middleware/logger');
+// const { simpleLogger } = require('./middleware/logger');
+const morgan = require('morgan');
 
 const { PORT } = require('./config');
 
@@ -17,7 +18,9 @@ console.log('Hello Noteful!');
 
 // INSERT EXPRESS APP CODE HERE...
 
-app.use(simpleLogger);
+// app.use(simpleLogger);
+
+app.use(morgan('dev'));
 
 app.use(express.static('public'));
 
