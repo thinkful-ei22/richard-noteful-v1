@@ -12,6 +12,8 @@ const notesRouter = require('./router/notes.router');
 
 const app = express();
 
+const eventPort = process.env.PORT || PORT;
+
 console.log('Hello Noteful!');
 
 // INSERT EXPRESS APP CODE HERE...
@@ -47,7 +49,7 @@ app.use(function (err, req, res, next) {
 
 // Listen for incoming connections
 if (require.main === module) {
-  app.listen(PORT, function () {
+  app.listen(eventPort, function () {
     console.info(`Server listening on ${this.address().port}`);
   }).on('error', err => {
     console.error(err);
